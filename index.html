@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travelry - Your Perfect Travel Companion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/beanco-script" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Beanco Script', cursive;
+            font-size: 2.8rem;
+            font-weight: normal;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00C6FB, #005BEA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #00C6FB, #005BEA);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn {
+            color: #3498db;
+            border: 1px solid #3498db;
+        }
+
+        .login-btn:hover {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .signup-btn {
+            background-color: #3498db;
+            color: white;
+            border: 1px solid #3498db;
+        }
+
+        .signup-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .agent-btn {
+            background-color: #2ecc71;
+            color: white;
+            border: 1px solid #2ecc71;
+        }
+
+        .agent-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .hero .cta {
+            background: linear-gradient(45deg, #00C6FB, #005BEA);
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .hero .cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .features {
+            padding: 4rem 2rem;
+            background-color: #f9f9f9;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        .cta {
+            background-color: #3498db;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta:hover {
+            background-color: #2980b9;
+        }
+
+        .testimonials {
+            padding: 4rem 2rem;
+            background-color: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card .author {
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        /* Special Assistance Section Styles */
+        .special-assistance {
+            padding: 4rem 2rem;
+            background: linear-gradient(to bottom, #f0f9ff, #ffffff);
+        }
+
+        .assistance-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .assistance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .assistance-icon {
+            width: 60px;
+            height: 60px;
+            background: #e3f2fd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .assistance-icon i {
+            font-size: 1.5rem;
+            color: #3498db;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-header .icon-container {
+            margin-bottom: 1rem;
+        }
+
+        .footprints-icon {
+            width: 48px;
+            height: 48px;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">Travelry</a>
+        <div class="nav-links">
+            <a href="auth.html" class="nav-btn login-btn">Log in</a>
+            <a href="auth.html" class="nav-btn signup-btn">Sign Up</a>
+            <a href="agent-registration.html" class="nav-btn agent-btn">Become an Agent</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Your Perfect Travel Experience</h1>
+            <p>A platform connecting travelers with experienced, verified travel agents who design customized itineraries based on individual preferences, interests, and budgets. Travelers collaborate with agents through chat or video to co-create their perfect trip, with all bookings and updates managed in one place.</p>
+            <a href="travel-planning.html" class="cta">Start Planning Your Trip</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Customized Itineraries">
+                <h3>Customized Itineraries</h3>
+                <p>Get personalized travel plans tailored to your preferences and budget.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="Expert Travel Agents">
+                <h3>Expert Travel Agents</h3>
+                <p>Connect with verified travel experts who know the best destinations and experiences.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Real-time Collaboration">
+                <h3>Real-time Collaboration</h3>
+                <p>Plan your trip with your travel agent through chat or video calls.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Assistance Section -->
+    <section class="special-assistance">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Special Assistance Services</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">We ensure comfortable and accessible travel experiences for everyone</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="assistance-card">
+                    <div class="assistance-icon">
+<i data-lucide="wheelchair"></i>
+                        <i data-lucide="wheelchair"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Wheelchair Assistance</h3>
+                    <p class="text-gray-600">Comprehensive support including accessible transportation, accommodation arrangements, and dedicated assistance throughout your journey.</p>
+                </div>
+                <div class="assistance-card">
+                    <div class="assistance-icon">
+                        <i data-lucide="heart"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Physical Assistance</h3>
+                    <p class="text-gray-600">Specialized support for physically challenged travelers, ensuring safe and comfortable journeys with trained assistance staff.</p>
+                </div>
+                <div class="assistance-card">
+                    <div class="assistance-icon">
+                        <i data-lucide="eye"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Visual Assistance</h3>
+                    <p class="text-gray-600">Dedicated support for visually impaired travelers, including guided assistance, audio descriptions, and special arrangements.</p>
+                </div>
+                <div class="assistance-card">
+                    <div class="assistance-icon">
+                        <i data-lucide="ear"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Hearing Assistance</h3>
+                    <p class="text-gray-600">Comprehensive support including sign language interpreters, visual alerts, and specialized communication assistance.</p>
+                </div>
+                <div class="assistance-card">
+                  <div class="assistance-icon">
+                    <i data-lucide="footprints"></i>
+                    <i data-lucide="infants"></i>
+                  </div>
+                  <h3 class = "text-2xl font-semibold text-gray-900 mb-4">Parental Assistance</h3>
+                  <p class=" text-gray-600">Specialized assistance for parents traveling with infants, including baby care kits, feeding areas, and designated seating in flights.</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section class="indian-destinations">
+        <div class="section-header">
+            <i data-lucide="footprints" class="footprints-icon"></i>
+            <h2>Explore Incredible India</h2>
+            <p>Discover the rich cultural heritage and breathtaking landscapes of India</p>
+        </div>
+        // ... rest of the section content ...
+    </section>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Notifications - Travelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/beanco-script" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Beanco Script', cursive;
+            font-size: 2.8rem;
+            font-weight: normal;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00C6FB, #005BEA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .notifications-container {
+            max-width: 1200px;
+            margin: 8rem auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .notifications-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .notifications-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .notifications-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .notifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .notification-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .notification-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .notification-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .notification-time {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .notification-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .accept-btn {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .accept-btn:hover {
+            background: #27ae60;
+        }
+
+        .reject-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .reject-btn:hover {
+            background: #c0392b;
+        }
+
+        .no-notifications {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .no-notifications p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Travelry</a>
+    </nav>
+
+    <div class="notifications-container">
+        <div class="notifications-header">
+            <h1>Your Notifications</h1>
+            <p>View and respond to travel requests from potential clients</p>
+        </div>
+
+        <div class="notifications-grid">
+            <!-- Notifications will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Get agent data and notifications from localStorage
+        const agentData = JSON.parse(localStorage.getItem('agentData') || '{}');
+        const notifications = JSON.parse(localStorage.getItem('agentNotifications') || '[]');
+        const notificationsGrid = document.querySelector('.notifications-grid');
+
+        // Update header with agent's name
+        const header = document.querySelector('.notifications-header h1');
+        if (agentData.fullName) {
+            header.textContent = `Welcome, ${agentData.fullName}!`;
+        }
+
+        // Display notifications
+        if (notifications.length > 0) {
+            notifications.forEach(notification => {
+                const card = document.createElement('div');
+                card.className = 'notification-card';
+                card.innerHTML = `
+                    <div class="notification-header">
+                        <h3 class="notification-title">New Travel Request</h3>
+                        <span class="notification-time">${notification.timestamp}</span>
+                    </div>
+                    <div class="notification-details">
+                        <div class="detail-item">
+                            <i data-lucide="user"></i>
+                            <span>${notification.clientName}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i data-lucide="map-pin"></i>
+                            <span>Destination: ${notification.destination}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i data-lucide="calendar"></i>
+                            <span>Travel Dates: ${notification.travelDates}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i data-lucide="users"></i>
+                            <span>${notification.travelers}</span>
+                        </div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="action-btn accept-btn">
+                            <i data-lucide="check"></i>
+                            Accept
+                        </button>
+                        <button class="action-btn reject-btn">
+                            <i data-lucide="x"></i>
+                            Reject
+                        </button>
+                    </div>
+                `;
+                notificationsGrid.appendChild(card);
+            });
+        } else {
+            notificationsGrid.innerHTML = `
+                <div class="no-notifications">
+                    <i data-lucide="bell-off" style="width: 48px; height: 48px; color: #666; margin-bottom: 1rem;"></i>
+                    <p>No new notifications at the moment</p>
+                </div>
+            `;
+        }
+
+        // Add click handlers for action buttons
+        document.querySelectorAll('.action-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const card = button.closest('.notification-card');
+                const action = button.classList.contains('accept-btn') ? 'accepted' : 'rejected';
+                card.style.opacity = '0';
+                setTimeout(() => {
+                    card.remove();
+                    checkEmptyState();
+                }, 300);
+                alert(`Request ${action}!`);
+            });
+        });
+
+        function checkEmptyState() {
+            const grid = document.querySelector('.notifications-grid');
+            if (grid.children.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-notifications">
+                        <i data-lucide="bell-off" style="width: 48px; height: 48px; color: #666; margin-bottom: 1rem;"></i>
+                        <p>No new notifications at the moment</p>
+                    </div>
+                `;
+                lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Requests - Travelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/beanco-script" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Beanco Script', cursive;
+            font-size: 2.8rem;
+            font-weight: normal;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00C6FB, #005BEA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .requests-container {
+            max-width: 1200px;
+            margin: 8rem auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .requests-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .requests-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .requests-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .requests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .user-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .user-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00C6FB, #005BEA);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .user-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .request-time {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .request-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            color: #666;
+        }
+
+        .detail-item i {
+            color: #3498db;
+        }
+
+        .user-preferences {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .preference-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .preference-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .preference-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .accept-btn {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .accept-btn:hover {
+            background: #27ae60;
+        }
+
+        .reject-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .reject-btn:hover {
+            background: #c0392b;
+        }
+
+        .no-requests {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .no-requests p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Travelry</a>
+    </nav>
+
+    <div class="requests-container">
+        <div class="requests-header">
+            <h1>User Requests</h1>
+            <p>View and respond to travel requests from potential clients</p>
+        </div>
+
+        <div class="requests-grid">
+            <!-- User cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Get agent data and create sample user requests
+        const agentData = JSON.parse(localStorage.getItem('agentData') || '{}');
+        const requestsGrid = document.querySelector('.requests-grid');
+
+        // Update header with agent's name
+        const header = document.querySelector('.requests-header h1');
+        if (agentData.fullName) {
+            header.textContent = `Welcome, ${agentData.fullName}!`;
+        }
+
+        // Sample user requests data
+        const userRequests = [
+            {
+                id: 1,
+                name: "John Doe",
+                destination: "Pondicherry",
+                travelDates: "15-20 June 2024",
+                travelers: "4 Adults, 1 Infant",
+                budget: "₹50,000 - ₹75,000",
+                preferences: ["Cultural Tours", "Beach Activities", "Local Cuisine"],
+                timestamp: "2 hours ago"
+            },
+            {
+                id: 2,
+                name: "Sarah Smith",
+                destination: "Pondicherry",
+                travelDates: "1-7 July 2024",
+                travelers: "2 Adults",
+                budget: "₹30,000 - ₹45,000",
+                preferences: ["Heritage Sites", "Photography", "Shopping"],
+                timestamp: "5 hours ago"
+            }
+        ];
+
+        // Display user requests
+        if (userRequests.length > 0) {
+            userRequests.forEach(request => {
+                const card = document.createElement('div');
+                card.className = 'user-card';
+                card.innerHTML = `
+                    <div class="user-header">
+                        <div class="user-info">
+                            <div class="user-avatar">${request.name.charAt(0)}</div>
+                            <div class="user-name">${request.name}</div>
+                        </div>
+                        <span class="request-time">${request.timestamp}</span>
+                    </div>
+                    <div class="request-details">
+                        <div class="detail-item">
+                            <i data-lucide="map-pin"></i>
+                            <span>Destination: ${request.destination}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i data-lucide="calendar"></i>
+                            <span>Travel Dates: ${request.travelDates}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i data-lucide="users"></i>
+                            <span>${request.travelers}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i data-lucide="indian-rupee"></i>
+                            <span>Budget: ${request.budget}</span>
+                        </div>
+                    </div>
+                    <div class="user-preferences">
+                        <div class="preference-title">Travel Preferences</div>
+                        <div class="preference-list">
+                            ${request.preferences.map(pref => `
+                                <span class="preference-tag">${pref}</span>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="action-btn accept-btn">
+                            <i data-lucide="check"></i>
+                            Accept Request
+                        </button>
+                        <button class="action-btn reject-btn">
+                            <i data-lucide="x"></i>
+                            Reject Request
+                        </button>
+                    </div>
+                `;
+                requestsGrid.appendChild(card);
+            });
+        } else {
+            requestsGrid.innerHTML = `
+                <div class="no-requests">
+                    <i data-lucide="users" style="width: 48px; height: 48px; color: #666; margin-bottom: 1rem;"></i>
+                    <p>No user requests at the moment</p>
+                </div>
+            `;
+        }
+
+        // Add click handlers for action buttons
+        document.querySelectorAll('.action-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const card = button.closest('.user-card');
+                const action = button.classList.contains('accept-btn') ? 'accepted' : 'rejected';
+                card.style.opacity = '0';
+                setTimeout(() => {
+                    card.remove();
+                    checkEmptyState();
+                }, 300);
+                alert(`Request ${action}!`);
+            });
+        });
+
+        function checkEmptyState() {
+            const grid = document.querySelector('.requests-grid');
+            if (grid.children.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-requests">
+                        <i data-lucide="users" style="width: 48px; height: 48px; color: #666; margin-bottom: 1rem;"></i>
+                        <p>No user requests at the moment</p>
+                    </div>
+                `;
+                lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+</html> 

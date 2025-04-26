@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Agents - Travelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/beanco-script" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Beanco Script', cursive;
+            font-size: 2.8rem;
+            font-weight: normal;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00C6FB, #005BEA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .agents-container {
+            max-width: 1200px;
+            margin: 8rem auto 2rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .agent-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .agent-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .agent-info {
+            padding: 1.5rem;
+        }
+
+        .agent-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .agent-title {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .agent-rating {
+            color: #f1c40f;
+            margin-bottom: 1rem;
+        }
+
+        .agent-specialties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .specialty-tag {
+            background: #e3f2fd;
+            color: #3498db;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .agent-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .chat-btn {
+            background: #3498db;
+        }
+
+        .call-btn {
+            background: #2ecc71;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Travelry</a>
+    </nav>
+
+    <div class="agents-container">
+        <!-- Priya Sharma's Profile -->
+        <div class="agent-card">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
+                 alt="Priya Sharma" class="agent-image">
+            <div class="agent-info">
+                <h2 class="agent-name">Priya Sharma</h2>
+                <p class="agent-title">Luxury Travel Expert</p>
+                <div class="agent-rating">★★★★★ (4.9)</div>
+                <div class="agent-specialties">
+                    <span class="specialty-tag">Honeymoon Packages</span>
+                    <span class="specialty-tag">Luxury Resorts</span>
+                    <span class="specialty-tag">Spa Retreats</span>
+                    <span class="specialty-tag">Beach Destinations</span>
+                </div>
+                <p style="color: #666; margin-bottom: 1rem;">
+                    Specializes in: Maldives, Bali, and Thailand
+                </p>
+                <div class="agent-actions">
+                    <a href="chat-room.html?agent=Priya Sharma&title=Luxury Travel Expert&specialization=Maldives" 
+                       class="action-btn chat-btn">
+                        <i data-lucide="message-circle"></i>
+                        Chat
+                    </a>
+                    <button class="action-btn call-btn" onclick="initiateCall('voice')">
+                        <i data-lucide="phone"></i>
+                        Call
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amit Patel's Profile -->
+        <div class="agent-card">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
+                 alt="Amit Patel" class="agent-image">
+            <div class="agent-info">
+                <h2 class="agent-name">Amit Patel</h2>
+                <p class="agent-title">Adventure Travel Specialist</p>
+                <div class="agent-rating">★★★★★ (4.9)</div>
+                <div class="agent-specialties">
+                    <span class="specialty-tag">Adventure Tours</span>
+                    <span class="specialty-tag">Trekking</span>
+                    <span class="specialty-tag">Wildlife Safaris</span>
+                </div>
+                <p style="color: #666; margin-bottom: 1rem;">
+                    Specializes in: Himachal Pradesh, Uttarakhand, and Ladakh
+                </p>
+                <div class="agent-actions">
+                    <a href="chat-room.html?agent=Amit Patel&title=Adventure Travel Specialist&specialization=Himachal Pradesh" 
+                       class="action-btn chat-btn">
+                        <i data-lucide="message-circle"></i>
+                        Chat
+                    </a>
+                    <button class="action-btn call-btn" onclick="initiateCall('voice')">
+                        <i data-lucide="phone"></i>
+                        Call
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        function initiateCall(type) {
+            alert(`Initiating ${type} call...`);
+        }
+    </script>
+</body>
+</html> 

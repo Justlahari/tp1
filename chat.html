@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Agent - Travelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/beanco-script" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Beanco Script', cursive;
+            font-size: 2.8rem;
+            font-weight: normal;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00C6FB, #005BEA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .chat-container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 8rem auto 2rem;
+            padding: 0 2rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .chat-sidebar {
+            width: 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+
+        .agent-info {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .agent-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00C6FB, #005BEA);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+        }
+
+        .agent-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .agent-title {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .chat-main {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chat-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 1rem;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .message.agent {
+            align-self: flex-start;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.5rem;
+            text-align: right;
+        }
+
+        .chat-input {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 1rem;
+            resize: none;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .message-input:focus {
+            border-color: #3498db;
+        }
+
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: #2980b9;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Travelry</a>
+    </nav>
+
+    <div class="chat-container">
+        <div class="chat-sidebar">
+            <div class="agent-info">
+                <div class="agent-avatar">R</div>
+                <div class="agent-name">Rajesh Kumar</div>
+                <div class="agent-title">Senior Travel Consultant</div>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>Online</span>
+                </div>
+            </div>
+            <div class="agent-details">
+                <div class="detail-item">
+                    <i data-lucide="map-pin"></i>
+                    <span>Specializes in: Pondicherry</span>
+                </div>
+                <div class="detail-item">
+                    <i data-lucide="star"></i>
+                    <span>Rating: 4.9/5</span>
+                </div>
+                <div class="detail-item">
+                    <i data-lucide="briefcase"></i>
+                    <span>Experience: 10+ years</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-main">
+            <div class="chat-header">
+                <i data-lucide="message-circle"></i>
+                <div class="chat-title">Chat with Rajesh Kumar</div>
+            </div>
+
+            <div class="chat-messages">
+                <div class="message agent">
+                    Hello! I'm Rajesh, your travel consultant for Pondicherry. How can I help you plan your trip?
+                    <div class="message-time">10:30 AM</div>
+                </div>
+                <div class="message user">
+                    Hi Rajesh! I'm planning a trip to Pondicherry next month with my family. We're interested in cultural tours and beach activities.
+                    <div class="message-time">10:32 AM</div>
+                </div>
+                <div class="message agent">
+                    That's great! I can help you plan a perfect itinerary. How many people will be traveling and what are your preferred dates?
+                    <div class="message-time">10:33 AM</div>
+                </div>
+                <div class="message user">
+                    There will be 4 adults and 1 infant. We're looking at June 15-20. What would you recommend for a family-friendly itinerary?
+                    <div class="message-time">10:35 AM</div>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <textarea class="message-input" placeholder="Type your message..." rows="1"></textarea>
+                <button class="send-btn">
+                    <i data-lucide="send"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Auto-resize textarea
+        const messageInput = document.querySelector('.message-input');
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Send message functionality
+        const sendBtn = document.querySelector('.send-btn');
+        const chatMessages = document.querySelector('.chat-messages');
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                const messageElement = document.createElement('div');
+                messageElement.className = 'message user';
+                messageElement.innerHTML = `
+                    ${message}
+                    <div class="message-time">${timeString}</div>
+                `;
+                
+                chatMessages.appendChild(messageElement);
+                messageInput.value = '';
+                messageInput.style.height = 'auto';
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate agent response after 1 second
+                setTimeout(() => {
+                    const agentResponse = document.createElement('div');
+                    agentResponse.className = 'message agent';
+                    agentResponse.innerHTML = `
+                        Thank you for sharing those details! I'll prepare a customized itinerary for your family trip to Pondicherry.
+                        <div class="message-time">${timeString}</div>
+                    `;
+                    chatMessages.appendChild(agentResponse);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html> 

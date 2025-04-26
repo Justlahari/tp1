@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travelry - Become a Travel Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-3xl font-bold text-blue-500 logo">Travelry</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl w-full space-y-8 bg-white p-12 rounded-lg shadow-xl">
+            <div class="text-center">
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-4">
+                    Become a Travel Agent
+                </h2>
+                <p class="text-lg text-gray-600">
+                    Join our network of professional travel agents
+                </p>
+            </div>
+
+            <!-- Error Message (Hidden by default) -->
+            <div class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">Please fill in all required fields correctly.</span>
+            </div>
+
+            <form class="mt-12 space-y-8" action="#" method="POST">
+                <div class="space-y-8">
+                    <!-- Full Name -->
+                    <div>
+                        <label for="full-name" class="block text-lg font-medium text-gray-700 mb-2">Full Name</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i data-lucide="user" class="h-6 w-6 text-gray-400"></i>
+                            </div>
+                            <input id="full-name" name="full-name" type="text" required 
+                                class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 py-3 text-lg border-gray-300 rounded-md"
+                                placeholder="John Doe">
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-lg font-medium text-gray-700 mb-2">Email</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i data-lucide="mail" class="h-6 w-6 text-gray-400"></i>
+                            </div>
+                            <input id="email" name="email" type="email" required 
+                                class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 py-3 text-lg border-gray-300 rounded-md"
+                                placeholder="john@example.com">
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-lg font-medium text-gray-700 mb-2">Password</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i data-lucide="lock" class="h-6 w-6 text-gray-400"></i>
+                            </div>
+                            <input id="password" name="password" type="password" required 
+                                class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 py-3 text-lg border-gray-300 rounded-md"
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+                        <label for="confirm-password" class="block text-lg font-medium text-gray-700 mb-2">Confirm Password</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i data-lucide="lock" class="h-6 w-6 text-gray-400"></i>
+                            </div>
+                            <input id="confirm-password" name="confirm-password" type="password" required 
+                                class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 py-3 text-lg border-gray-300 rounded-md"
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <!-- Years of Experience -->
+                    <div>
+                        <label for="experience" class="block text-lg font-medium text-gray-700 mb-2">Years of Experience</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i data-lucide="calendar" class="h-6 w-6 text-gray-400"></i>
+                            </div>
+                            <input id="experience" name="experience" type="number" min="0" required 
+                                class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 py-3 text-lg border-gray-300 rounded-md"
+                                placeholder="5">
+                        </div>
+                    </div>
+
+                    <!-- Age -->
+                    <div>
+                        <label for="age" class="block text-lg font-medium text-gray-700 mb-2">Age</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i data-lucide="user" class="h-6 w-6 text-gray-400"></i>
+                            </div>
+                            <input id="age" name="age" type="number" min="18" max="100" required 
+                                class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 py-3 text-lg border-gray-300 rounded-md"
+                                placeholder="Enter your age">
+                        </div>
+                    </div>
+
+                    <!-- Aadhar Number -->
+                    <div>
+                        <label for="aadhar" class="block text-lg font-medium text-gray-700 mb-2">Aadhar Number</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i data-lucide="id-card" class="h-6 w-6 text-gray-400"></i>
+                            </div>
+                            <input id="aadhar" name="aadhar" type="text" pattern="[0-9]{12}" required 
+                                class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 py-3 text-lg border-gray-300 rounded-md"
+                                placeholder="Enter 12-digit Aadhar number"
+                                maxlength="12">
+                        </div>
+                    </div>
+
+                    <!-- Languages -->
+                    <div>
+                        <label for="languages" class="block text-lg font-medium text-gray-700 mb-2">Languages (comma-separated)</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i data-lucide="languages" class="h-6 w-6 text-gray-400"></i>
+                            </div>
+                            <input id="languages" name="languages" type="text" required 
+                                class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 py-3 text-lg border-gray-300 rounded-md"
+                                placeholder="English, Spanish, French">
+                        </div>
+                    </div>
+
+                    <!-- Bio -->
+                    <div>
+                        <label for="bio" class="block text-lg font-medium text-gray-700 mb-2">Bio</label>
+                        <div class="mt-1">
+                            <textarea id="bio" name="bio" rows="6" required 
+                                class="focus:ring-blue-500 focus:border-blue-500 block w-full py-3 px-4 text-lg border-gray-300 rounded-md"
+                                placeholder="Tell us about yourself and your experience..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="flex items-center mt-8">
+                    <input id="terms" name="terms" type="checkbox" required
+                        class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="terms" class="ml-3 block text-lg text-gray-900">
+                        I agree to the <a href="#" class="text-blue-600 hover:text-blue-500">Terms of Service</a> and
+                        <a href="#" class="text-blue-600 hover:text-blue-500">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-12">
+                    <button type="submit"
+                        class="group relative w-full flex justify-center py-4 px-6 border border-transparent text-xl font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                        Register as Agent
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html> 

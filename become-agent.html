@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become an Agent - Travelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/beanco-script" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Beanco Script', cursive;
+            font-size: 2.8rem;
+            font-weight: normal;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00C6FB, #005BEA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 8rem auto 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .specialties-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .specialty-checkbox {
+            display: none;
+        }
+
+        .specialty-label {
+            padding: 0.5rem 1rem;
+            background: #f0f0f0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .specialty-checkbox:checked + .specialty-label {
+            background: #3498db;
+            color: white;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Travelry</a>
+    </nav>
+
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Become a Travel Agent</h1>
+            <p>Join our network of expert travel agents and help travelers create unforgettable experiences</p>
+        </div>
+
+        <form id="agentForm" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label for="fullName">Full Name <span class="required">*</span></label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location <span class="required">*</span></label>
+                <input type="text" id="location" name="location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="experience">Years of Experience <span class="required">*</span></label>
+                <input type="number" id="experience" name="experience" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="languages">Languages Spoken <span class="required">*</span></label>
+                <input type="text" id="languages" name="languages" placeholder="e.g., English, Hindi, French" required>
+            </div>
+
+            <div class="form-group">
+                <label>Specialties <span class="required">*</span></label>
+                <div class="specialties-container">
+                    <input type="checkbox" id="cultural" name="specialties" value="Cultural Tours" class="specialty-checkbox">
+                    <label for="cultural" class="specialty-label">Cultural Tours</label>
+
+                    <input type="checkbox" id="adventure" name="specialties" value="Adventure Tours" class="specialty-checkbox">
+                    <label for="adventure" class="specialty-label">Adventure Tours</label>
+
+                    <input type="checkbox" id="luxury" name="specialties" value="Luxury Travel" class="specialty-checkbox">
+                    <label for="luxury" class="specialty-label">Luxury Travel</label>
+
+                    <input type="checkbox" id="heritage" name="specialties" value="Heritage Sites" class="specialty-checkbox">
+                    <label for="heritage" class="specialty-label">Heritage Sites</label>
+
+                    <input type="checkbox" id="wellness" name="specialties" value="Wellness Tours" class="specialty-checkbox">
+                    <label for="wellness" class="specialty-label">Wellness Tours</label>
+
+                    <input type="checkbox" id="wildlife" name="specialties" value="Wildlife Tours" class="specialty-checkbox">
+                    <label for="wildlife" class="specialty-label">Wildlife Tours</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="bio">Professional Bio <span class="required">*</span></label>
+                <textarea id="bio" name="bio" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="destinations">Preferred Destinations <span class="required">*</span></label>
+                <input type="text" id="destinations" name="destinations" placeholder="e.g., Pondicherry, Goa, Kerala" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Application</button>
+        </form>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                location: document.getElementById('location').value,
+                experience: document.getElementById('experience').value,
+                languages: document.getElementById('languages').value,
+                specialties: Array.from(document.querySelectorAll('input[name="specialties"]:checked')).map(cb => cb.value),
+                bio: document.getElementById('bio').value,
+                destinations: document.getElementById('destinations').value
+            };
+
+            // Store agent data in localStorage
+            localStorage.setItem('agentData', JSON.stringify(formData));
+            
+            // Redirect to agent requests page
+            window.location.href = 'agent-requests.html';
+        }
+    </script>
+</body>
+</html> 
