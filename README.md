@@ -1,0 +1,1 @@
+This is a travel website front end.Travelry is a website which connects people who are willing to go on a trip with the travel agents or guides.People can view the details about the agents and contact with them and plan thier trip accordingly.
